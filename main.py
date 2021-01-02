@@ -12,6 +12,16 @@ from pyqtgraph.Qt import QtGui, QtCore
 import pyqtgraph as pg
 from boids import BoidSim
 
+#-----------------------------------------------------------------------------
+#                               Config
+#-----------------------------------------------------------------------------
+NUMBOIDS = 100
+XAXISMIN= -500
+XAXISMAX = 500
+YAXISMIN = -500
+YAXISMAX = 500
+#-----------------------------------------------------------------------------
+
 
 def update():
     """
@@ -41,10 +51,10 @@ if __name__ == "__main__":
     pg.setConfigOptions(antialias=True)
 
     p1 = win.addPlot(title="A flock of Boids")
-    p1.setRange(xRange=[-500,500])
-    p1.setRange(yRange=[-500,500])
+    p1.setRange(xRange=[XAXISMIN,XAXISMAX])
+    p1.setRange(yRange=[YAXISMIN ,YAXISMAX])
 
-    sim = BoidSim(100) 
+    sim = BoidSim(NUMBOIDS) 
 
     curve = p1.plot(x= sim.boids[:,0], y= sim.boids[:,1], pen=None, symbol='t', 
                 symbolPen=None, symbolSize=20, symbolBrush=(195,46,212))
