@@ -1,5 +1,5 @@
 # Boids
-An implementation of [Craig Reynold's boids] in Python using numpy and pyqtgraph. 
+An implementation of [Craig Reynold's boids] in Python using NumPy and PyQtGraph. 
 
 ## Requirements
 * Python3
