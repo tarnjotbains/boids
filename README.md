@@ -15,8 +15,9 @@ Modify the CONFIG section in main.py or run main.py as is.
 ### Tasks
  - [x] Implement in 2D
  - [ ] Show directions of vectors on plot
- - [ ] Implement 'artificial' boids
+ - [ ] Implement 'artificial' 2D boids
  - [ ] Implement in 3D with openGl
+ - [ ] Implement 'artificial' 3D boids
 
 
 
