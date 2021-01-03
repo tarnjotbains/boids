@@ -14,6 +14,7 @@ Modify the CONFIG section in main.py or run main.py as is.
 
 ### Tasks
  - [x] Implement in 2D
+ - [ ] Fix GIF
  - [ ] Vectorize boid rules
  - [ ] Show directions of vectors on plot
  - [ ] Implement 'artificial' 2D boids
