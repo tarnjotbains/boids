@@ -19,6 +19,7 @@ Modify the CONFIG section in main.py or run main.py as is.
  - [ ] Show directions of vectors on plot
  - [ ] Implement 'artificial' 2D boids
  - [ ] Implement in 3D with openGl
+ - [ ] Add surface plot that 3D boids can interact with
  - [ ] Implement 'artificial' 3D boids
 
 
