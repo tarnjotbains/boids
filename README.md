@@ -14,7 +14,7 @@ Modify the CONFIG section in main.py or run main.py as is.
 
 ### Tasks
  - [x] Implement in 2D
- - [ ] Find nearest neighbours with k-d tree, reduces runtime of rules from O(n**n) to O(nlogn)
+ - [ ] Find nearest neighbours with k-d tree, reduces runtime of rules from O(n<sup>n</sup>) to O(nlogn)
  - [ ] Fix GIF
  - [ ] Vectorize boid rules
  - [ ] Show directions of vectors on plot
