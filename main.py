@@ -15,7 +15,7 @@ from boids import BoidSim
 #-----------------------------------------------------------------------------
 #                               Config
 #-----------------------------------------------------------------------------
-NUMBOIDS = 100
+NUMBOIDS = 50
 XAXISMIN= -500
 XAXISMAX = 500
 YAXISMIN = -500
@@ -37,30 +37,30 @@ def update():
     curve.setData(x= sim.boids[:,0], y= sim.boids[:,1]) 
 
 
-if __name__ == "__main__":
-    #QtGui.QApplication.setGraphicsSystem('raster')
-    app = QtGui.QApplication([])
+
+#QtGui.QApplication.setGraphicsSystem('raster')
+app = QtGui.QApplication([])
     #mw = QtGui.QMainWindow()
 #   mw.resize(800,800)
 
-    win = pg.GraphicsLayoutWidget(show=True, title="Boids Simulation")
-    win.resize(1920,1080)
-    win.setWindowTitle('Boids Simulation')
+win = pg.GraphicsLayoutWidget(show=True, title="Boids Simulation")
+win.resize(1920,1080)
+win.setWindowTitle('Boids Simulation')
 
     # Enable antialiasing for prettier plots
-    pg.setConfigOptions(antialias=True)
+pg.setConfigOptions(antialias=True)
 
-    p1 = win.addPlot(title="A flock of Boids")
-    p1.setRange(xRange=[XAXISMIN,XAXISMAX])
-    p1.setRange(yRange=[YAXISMIN ,YAXISMAX])
+p1 = win.addPlot(title="A flock of Boids")
+p1.setRange(xRange=[XAXISMIN,XAXISMAX])
+p1.setRange(yRange=[YAXISMIN ,YAXISMAX])
 
-    sim = BoidSim(NUMBOIDS) 
+sim = BoidSim(NUMBOIDS) 
 
-    curve = p1.plot(x= sim.boids[:,0], y= sim.boids[:,1], pen=None, symbol='t', 
+curve = p1.plot(x= sim.boids[:,0], y= sim.boids[:,1], pen=None, symbol='t', 
                 symbolPen=None, symbolSize=20, symbolBrush=(195,46,212))
     
-    timer = QtCore.QTimer()
-    timer.timeout.connect(update) 
-    timer.start(10)
+timer = QtCore.QTimer()
+timer.timeout.connect(update) 
+timer.start(10)
     
             
