@@ -16,10 +16,11 @@ Modify the CONFIG section in main.py or run main.py as is.
  - [x] ~~Implement in 2D~~
  - [ ] ~~Find nearest neighbours with k-d tree, reduces runtime of rules from O(n<sup>n</sup>) to O(nlogn)~~ (see explanation below) 
  - [x] ~~Fix GIF~~
- - [ ] Vectorize boid rules
+ - [x] ~~Vectorize boid rules~~ (as much as they can be...)
  - [ ] Show directions of vectors on plot
  
 ### Extras 
+ - [ ] Add GUI with PyQ, where user can control behaviour. 
  - [ ] Implement 'artificial' 2D boids
  - [ ] Implement in 3D with openGl
  - [ ] Add surface plot that 3D boids can interact with
