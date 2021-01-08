@@ -7,6 +7,7 @@ An implementation of [Craig Reynold's boids] in Python using NumPy and PyQtGraph
 * Python3
 * [NumPy]
 * [PyQtGraph]
+* Spyder IDE (I find certain IDEs have trouble running PyQt) 
 
 ### Usage
 Modify the CONFIG section in main.py or run main.py as is. 
