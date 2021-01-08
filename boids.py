@@ -95,11 +95,12 @@ class BoidSim:
         boids = self.boids
         velocities = self.velocities
         
-        for boid_num in range(0,self.num_boids): 
-            v1= self.cohesion(boid_num) 
-            v2= self.seperation(boid_num) 
-            v3 = self.alignment(boid_num) 
-            v4 = self.bound_position(boid_num)
+        for boid_num in range(0,self.num_boids):
+            closest = self.get_closest_boids(boid_num)
+            v1= self.cohesion(boid_num, closest) 
+            v2= self.seperation(boid_num, closest)  
+            v3 = self.alignment(boid_num, closest)
+            v4 = self.bound_position(boid_num) 
         
             velocities[boid_num]+= v1 + v2+ v3 + v4 #update velocity
             velocities[boid_num] = self.limit_velocity(boid_num) #limit velocity
@@ -131,7 +132,7 @@ class BoidSim:
         return boid_velocity
         
     
-    def cohesion(self,boid_num:int):
+    def cohesion(self,boid_num:int, closest_boids):
         """
         Moves boid with index boidNum towards the centre of mass of nearby 
         boids. 
@@ -140,6 +141,9 @@ class BoidSim:
         ----------
         boid_num  : int
             The index of a boid.
+        closest_boids  : tuple
+            A tuple containing two numpy arrays of positions of boids that are 
+            closest to boid at index boid_num and their corressponding velocities. 
 
         Returns
         -------
@@ -148,21 +152,24 @@ class BoidSim:
             boid.
 
         """
-        preceived_centre = self.get_closest_boids(boid_num)
+        preceived_centre = closest_boids[0]
         preceived_centre = np.mean(preceived_centre, axis = 0) 
         centre_offset = (preceived_centre  - self.boids[boid_num]) / 100
         return centre_offset
 
 
-    def seperation(self,boid_num: int): 
+    def seperation(self,boid_num: int, closest_boids): 
         """
-        Ensures that boid at index boidNum keeps a distance of atleast 20 units
+        Ensures that boid at index boidNum keeps a distance of atleast 10 units
         away from other boids. 
 
         Parameters
         ----------
         boid_num : int
             The index of a boid.
+        closest_boids  : tuple
+            A tuple containing two numpy arrays of positions of boids that are 
+            closest to boid at index boid_num and their corressponding velocities. 
 
         Returns
         -------
@@ -171,23 +178,25 @@ class BoidSim:
 
         """
         c = np.zeros(self.boids[boid_num].shape)
-    
-        for i in range(0,self.num_boids):
-            if i != boid_num: 
-                if np.linalg.norm(self.boids[i] - self.boids[boid_num]) < 20: 
-                    c -= (self.boids[i]-self.boids[boid_num])
+        
+        for i in range(0,len(closest_boids[0])):
+            if np.linalg.norm(closest_boids[0][i] - self.boids[boid_num]) < 10: 
+                    c = c - (self.boids[boid_num]- closest_boids[0][i])
         return c 
                 
                 
-    def alignment(self, boid_num: int):
+    def alignment(self, boid_num: int, closest_boids):
         """
         Moves the velocity of boid at index boidNum towards the average velocity 
-        of all boids. 
+        of close boids. 
 
         Parameters
         ----------
         boid_num : int
             The index of a boid.
+        closest_boids  : tuple
+            A tuple containing two numpy arrays of positions of boids that are 
+            closest to boid at index boid_num and their corressponding velocities. 
 
         Returns
         -------
@@ -195,42 +204,58 @@ class BoidSim:
             A vector offset 1/8th of boid velocities. 
         
         """
-        preceived_velocity = np.sum(self.velocities, axis = 0)
-        preceived_velocity -= self.velocities[boid_num] 
-        preceived_velocity = preceived_velocity / (self.num_boids-1) 
-        
+        closest_velocities_array = closest_boids[1] 
+        preceived_velocity = np.sum(closest_velocities_array, axis = 0)
+        preceived_velocity = preceived_velocity / len(closest_velocities_array) 
         velocity_offset = (preceived_velocity - self.velocities[boid_num]) / 8
         return velocity_offset
     
     def get_closest_boids(self,boid_num: int): 
         """
-        Generates an array of boids that are less than 30 units in distance
-        from boid at index boidNum. 
+        Generates an array of boids that are less than 20 units in distance
+        from boid at index boidNum.     
 
         Parameters
         ----------
-        boid_num: int
-            The index of a boid.
+        boid_num : int
+            DESCRIPTION.
 
         Returns
         -------
-        closest_array : numpy.ndarray
+        Tuple containing two arrays:
+            
+        closest_boids_array : numpy.ndarray
             an array of boids that are less than 30 units in distance from 
-            'boid'. 
+            'boid'.
+            
+        closest_velocities_array : numpy.ndarray
+            velocities of boids in corressponding boids array. 
+        
 
         """
+        #Make an array 
         closest_boids = [] # a list of closest boids.
-        closest_boids.append(self.boids[boid_num]) 
-        closest_boids[0] = closest_boids[0] - self.boids[boid_num] 
+        closest_boids.append(np.array([0,0]))
+        
+        closest_velocities = [] # a list of closest boids.
+        closest_velocities.append(np.array([0,0]))
+        
     
         for i in range(0,self.num_boids):
             if i != boid_num: 
                 if np.linalg.norm(self.boids[i] - self.boids[boid_num]) < 30: 
                     closest_boids.append(self.boids[i])
+                    closest_velocities.append(self.velocities[i]) 
+        
+        if len(closest_boids) > 1: 
+            closest_boids = closest_boids[1:]
+        if len(closest_velocities) > 1: 
+            closest_velocities = closest_velocities[1:] 
                 
         #convert list to array.         
-        closest_array = np.asarray(closest_boids).reshape((len(closest_boids),2))
-        return closest_array
+        closest_boids_array = np.asarray(closest_boids).reshape((len(closest_boids),2))
+        closest_velocities_array = np.asarray(closest_velocities).reshape((len(closest_velocities),2))
+        return (closest_boids_array, closest_velocities_array) 
     
     
     def bound_position(self, boid_num: int): 
