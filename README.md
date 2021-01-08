@@ -1,8 +1,7 @@
 # Boids
 An implementation of [Craig Reynold's boids] in Python using NumPy and PyQtGraph. 
 
-![](boids.gif)
-###### Looks smooth when you run it. Choppiness is because of GIF. 
+![](boids.gif) 
 
 ## Requirements
 * Python3
