@@ -34,9 +34,9 @@ generation time because we are using an array that has already been filled. For 
 the array of points. 
 
 - Linear search gives a runtime of O(N<sup>N</sup>). 
-- With N iterations of our array of points, K-D tree gives a total runtime of O((2<sup>d</sup>LogN * NLogN)<sup>N</sup>) =~ O(NLogN<sup>N</sup>) =~ O(N<sup>N</sup>). 
+- With N iterations of our array of points, K-D tree gives a total runtime of O((2<sup>d</sup>LogN + NLogN)<sup>N</sup>) =~ O(N <sup>N</sup> Log <sup>N</sup> N) 
 
-If one considers Big O time as it is commonly defined, the implementations are equal, however it is clear that in this case linear search is simply better suited for our purposes. 
+It is clear that for our purposes, linear search is better. 
 
 [Craig Reynold's boids]: https://cs.stanford.edu/people/eroberts/courses/soco/projects/2008-09/modeling-natural-systems/boids.html
 [NumPy]: https://numpy.org/
