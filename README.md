@@ -1,13 +1,13 @@
 # Boids
 An implementation of [Craig Reynold's boids] in Python using NumPy and PyQtGraph. 
 
-![](boids.gif)
-###### Looks smooth when you run it. Choppiness is because of GIF. 
+![](boids.gif) 
 
 ## Requirements
 * Python3
 * [NumPy]
 * [PyQtGraph]
+* Spyder IDE (I find certain IDEs have trouble running PyQt) 
 
 ### Usage
 Modify the CONFIG section in main.py or run main.py as is. 
@@ -16,10 +16,12 @@ Modify the CONFIG section in main.py or run main.py as is.
  - [x] ~~Implement in 2D~~
  - [ ] ~~Find nearest neighbours with k-d tree, reduces runtime of rules from O(n<sup>n</sup>) to O(nlogn)~~ (see explanation below) 
  - [x] ~~Fix GIF~~
- - [ ] Vectorize boid rules
+ - [x] ~~Vectorize boid rules~~ (as much as they can be...)
+ - [ ] Fix PyQt Implementation ***
  - [ ] Show directions of vectors on plot
  
 ### Extras 
+ - [ ] Add GUI with PyQ, where user can control behaviour. 
  - [ ] Implement 'artificial' 2D boids
  - [ ] Implement in 3D with openGl
  - [ ] Add surface plot that 3D boids can interact with
@@ -33,9 +35,9 @@ generation time because we are using an array that has already been filled. For 
 the array of points. 
 
 - Linear search gives a runtime of O(N<sup>N</sup>). 
-- With N iterations of our array of points, K-D tree gives a total runtime of O((2<sup>d</sup>LogN * NLogN)<sup>N</sup>) =~ O(NLogN<sup>N</sup>) =~ O(N<sup>N</sup>). 
+- With N iterations of our array of points, K-D tree gives a total runtime of O((2<sup>d</sup>LogN + NLogN)<sup>N</sup>) =~ O(N <sup>N</sup> Log <sup>N</sup> N) 
 
-If one considers Big O time as it is commonly defined, the implementations are equal, however it is clear that in this case linear search is simply better suited for our purposes. 
+It is clear that for our purposes, linear search is better. 
 
 [Craig Reynold's boids]: https://cs.stanford.edu/people/eroberts/courses/soco/projects/2008-09/modeling-natural-systems/boids.html
 [NumPy]: https://numpy.org/
