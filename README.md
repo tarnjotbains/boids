@@ -17,8 +17,9 @@ Modify the CONFIG section in main.py or run main.py as is.
  - [ ] ~~Find nearest neighbours with k-d tree, reduces runtime of rules from O(n<sup>n</sup>) to O(nlogn)~~ (see explanation below) 
  - [x] ~~Fix GIF~~
  - [x] ~~Vectorize boid rules~~ (as much as they can be...)
- - [ ] Fix PyQt Implementation ***
+ - [x] ~~Fix PyQt Implementation~~
  - [ ] Show directions of vectors on plot
+ - [ ] Add docstring to main.py 
  
 ### Extras 
  - [ ] Add GUI with PyQ, where user can control behaviour. 
